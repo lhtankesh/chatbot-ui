@@ -1,0 +1,47 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ChatGptTask {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  maxTokens Int?
+  model     String?
+  prompt    String?
+  updatedAt DateTime @updatedAt
+}
+
+model KnowledgeBase {
+  createdAt       DateTime @default(now())
+  id              String   @id @default(cuid())
+  knowledgeBaseId String?
+  maxSize         Int?
+  query           String?
+  updatedAt       DateTime @updatedAt
+}
+
+model WebhookTrigger {
+  createdAt DateTime                  @default(now())
+  id        String                    @id @default(cuid())
+  method    EnumWebhookTriggerMethod?
+  updatedAt DateTime                  @updatedAt
+  url       String?
+}
+
+model AwsData {
+  backupName       String?
+  createdAt        DateTime  @default(now())
+  id               String    @id @default(cuid())
+  lastModifiedTime DateTime?
+  lastRunTime      DateTime?
+  updatedAt        DateTime  @updatedAt
+}
+
+enum EnumWebhookTriggerMethod {
+  Option1
+}
